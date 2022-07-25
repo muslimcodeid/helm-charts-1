@@ -184,8 +184,6 @@ postgresql:
   postgresqlExtendedConf: {}
 
 externalDatabase:
-  enabled: false
-
   ## @param externalDatabase.host External Database server host
   ##
   host: localhost
