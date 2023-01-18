@@ -2,9 +2,9 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "nominatim.fullname" . }}
-  namespace: {{ include "common.names.namespace" . | quote }}
-  labels: {{- include "common.labels.standard" . | nindent 4 }}
+  name: {{ include "unpubd.name" . }}
+  labels:
+    {{- include "unpubd.labels" . | nindent 4 }}
   annotations:
     {{- if .Values.ingress.certManager }}
     kubernetes.io/tls-acme: "true"
@@ -27,7 +27,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ include "nominatim.fullname" . }}
+                name: {{ include "unpubd.fullname" . }}
                 port:
                   name: http
 {{- end }}

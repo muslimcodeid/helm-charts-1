@@ -3,8 +3,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "nominatim.fullname" . }}-updates
-  labels:
-    app.kubernetes.io/name: {{ include "nominatim.name" . }}-updates
+  namespace: {{ include "common.names.namespace" . | quote }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
 spec:
   selector:
     matchLabels:
@@ -22,8 +22,6 @@ spec:
           env:
             - name: NOMINATIM_DATABASE_DSN
               value: {{ include "nominatim.databaseUrl" . }}
-            - name: NOMINATIM_DATABASE_MODULE_PATH
-              value: {{ .Values.nominatim.databaseModulePath }}
             - name: NOMINATIM_REPLICATION_URL
               value: {{ .Values.nominatimReplications.replicationUrl }}
             - name: NOMINATIM_IMPORT_STYLE
